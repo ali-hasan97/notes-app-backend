@@ -19,16 +19,37 @@ const noteSchema = new mongoose.Schema({
 // model Note created based on the schema of noteSchema
 const Note = mongoose.model('Note', noteSchema)
 
-mongoose
-  .connect(url)
-  .then((result) => {
-    Note.find({})
-    .then(result => {
-        result.forEach(note => {
-            console.log(note)
-        })
-        console.log('note found!')
-        return mongoose.connection.close()
+if (process.argv.length === 4) {
+  mongoose
+    .connect(url)
+    .then((result) => {
+      console.log('connected')
+
+      const note = new Note({
+        content: process.argv[3],
+        date: new Date(),
+        important: true,
+      })
+
+      return note.save()
     })
-  })
-  .catch((err) => console.log(err))
+    .then(() => {
+      console.log('note saved!')
+      return mongoose.connection.close()
+    })
+    .catch((err) => console.log(err))
+} else {
+  mongoose
+    .connect(url)
+    .then((result) => {
+      Note.find({})
+      .then(result => {
+          result.forEach(note => {
+              console.log(note)
+          })
+          console.log('note found!')
+          return mongoose.connection.close()
+      })
+    })
+    .catch((err) => console.log(err))
+}

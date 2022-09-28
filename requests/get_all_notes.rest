@@ -5,9 +5,9 @@ POST http://localhost:3001/api/notes
 Content-Type: application/json
 
 {
-        "content": "Just testing VSCode REST client",
+        "content": "a",
         "important": true
 }
 
 ###
-DELETE http://localhost:3001/api/notes/63325f1117dbddbc284b1b8b
+DELETE http://localhost:3001/api/notes/6333a54d6ceb671585e75ac1
